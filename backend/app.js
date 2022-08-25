@@ -6,12 +6,15 @@ const path = require("path");
 //Importation des variables d"environnement
 const mongoDbUsername = process.env.MONGODB_USERNAME;
 const mongoDdPassword = process.env.MONGODB_PASSWORD;
+const imageUploadDirectory = process.env.IMAGE_UPLOAD_DIRECTORY;
+const imageAccessDirectory = process.env.IMAGE_ACCESS_DIRECTORY;
 
 //Importation des modules "routes"
 /* TO BE CHANGED */
 //const userRoutes = require("./routes/userRoutes");
 //const sauceRoutes = require("./routes/sauceRoutes");
 const userRoutes = require("./1_routes/userRoutes");
+const submissionRoutes = require("./1_routes/submissionRoutes");
 
 //Importation du module express
 const app = express();
@@ -45,11 +48,12 @@ app.use((req, res, next) =>
 /* TO BE CHANGED */
 //app.use("/api/auth", userRoutes);
 //app.use("/api/sauces", sauceRoutes);
-app.use("/api", userRoutes);
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/submission", submissionRoutes);
 
 //Permet la consultation des images stockées
 /* TO BE CHANGED */
-//app.use("/" + imageDirectory, express.static(path.join(__dirname, imageDirectory)));
+app.use("/api/v1/" + imageAccessDirectory, express.static(path.join(__dirname, imageUploadDirectory)));
 
 //Exportation de la fonction app
 module.exports = app;

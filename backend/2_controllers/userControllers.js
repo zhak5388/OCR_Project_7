@@ -65,7 +65,7 @@ const login = (req, res, next) =>
                     userId: user._id,
                     token: jsonWebToken.sign
                     (
-                        { userId: user._id },
+                        { userId: user._id, email: user.email},
                         `${process.env.JWT_SECRET_KEY}`,
                         { expiresIn: `${process.env.TOKEN_TIME_SPAN}` }
                     )
@@ -84,12 +84,6 @@ const login = (req, res, next) =>
         res.status(500).json({error});
     });
 }
-
-const test = (req, res, next) =>
-{
-    res.status(200).json({message: "Test Concluant. Le serveur est lancée au port 3050"});
-}
-
 /* TO BE CHANGED */
 //module.exports = {signUp, login};
-module.exports = {test, signUp, login};
+module.exports = {signUp, login};
