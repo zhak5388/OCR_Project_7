@@ -5,6 +5,9 @@ req.body (.textContent  .imageContentAlt)
 req.auth.email
 req.file
 
+///Pour la modification
+req.body.imageContent (contient soit url, soit "toBeRemoved", respectivement pour convervation image ou suppression)
+
 FormData
 imageContent
 textContent
@@ -21,7 +24,13 @@ function contentConstructor(req)
     {
         contentObjectToTreat.imageContent = `${req.protocol}://${req.get("host")}/api/v1/${process.env.IMAGE_ACCESS_DIRECTORY}/${req.file.filename}`;
     }
-    else {contentObjectToTreat.imageContent = "";}
+    else 
+    {
+        if (req?.body.imageContent == "toBeRemoved")
+        {
+            contentObjectToTreat.imageContent = "";
+        }
+    }
 
     let userEmail = req?.auth.email;
     let contentObject;

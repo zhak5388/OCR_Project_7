@@ -13,6 +13,7 @@ const multer = require("../2_middlewares/multer_config")
 router.get("/testGetAllPost", authorization.authorize, submissionControllers.getAllSubmissions);
 router.get("/:id", authorization.authorize, submissionControllers.getSubmission);
 router.post("/testCreatePost", authorization.authorize, multer.uploadImage, submissionControllers.addSubmission);
+router.put("/:id", authorization.authorize, multer.uploadImage, submissionControllers.modifySubmisison);
 router.delete("/:id", authorization.authorize, submissionControllers.deleteSubmission);
 
 module.exports = router;

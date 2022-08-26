@@ -65,6 +65,51 @@ const addSubmission = (req, res, next) =>
         res.status(500).json({error})
     });
 }
+/*
+L'ID du post est passé en req.params
+
+*/
+const modifySubmisison = (req, res, next) =>
+{
+    //Permet d'avoir un content bon
+    let contentObject = submissionFunctions.contentConstructor(req);
+    console.log(contentObject);
+
+    submissionModel.findOne({_id: req.params.id}).then( currentSubmission =>
+    {
+        if(req.auth.userId != currentSubmission.userId && req.auth.role != "admin")
+        {
+            res.status(401).json({message: "Utilisateur non autorisé"});
+        }
+        else if(req.auth.userId == currentSubmission.userId || req.auth.role == "admin")
+        {
+            if(req.auth.role == "admin")
+            {
+                console.log("Admin POWEER");
+                res.status(200).json({message: "your are the admin"});
+            }
+            else
+            {
+                //res.status(200).json(currentSubmission);
+                res.status(200).json({message: "your are the owner"});
+            }
+            /*
+            submissionModel.updateOne({_id: req.params.id},{}).then( () => 
+            {
+                res.status(200).json({message: "Modification succès"})
+            })
+            .catch( error => res.status(400).json({error}) );
+            */
+            
+
+        }
+        else
+        {
+            res.status(404).json({message: "Erreur"});
+        }
+    });
+
+}
 
 const deleteSubmission = (req, res, next) =>
 {
@@ -111,4 +156,4 @@ const deleteSubmission = (req, res, next) =>
 
 }
 
-module.exports = {getAllSubmissions, getSubmission, addSubmission, deleteSubmission};
+module.exports = {getAllSubmissions, getSubmission, addSubmission, modifySubmisison, deleteSubmission};
