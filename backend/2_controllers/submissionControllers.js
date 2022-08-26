@@ -1,5 +1,27 @@
 const submissionModel = require("../3_models/submissionModel");
+const userModel = require("../3_models/userModel");
 const submissionFunctions = require("../utils.js");
+const fs = require("fs");
+
+const getAllSubmissions = (req, res, next) =>
+{
+    submissionModel.find().then(allSubmissions => 
+    {
+        res.status(200).json(allSubmissions);
+    })
+    .catch(error => res.status(400).json({error}));
+}
+
+//le req.params doit se mettre dans le front?
+const getSubmission = (req, res, next) =>
+{
+    //console.log(req.params);
+    submissionModel.findOne({_id: req.params.id}).then(selectedSubmission => 
+    {
+        res.status(200).json(selectedSubmission);
+    })
+    .catch(error => res.status(400).json({error}));
+}
 
 //Entrée
 /*
@@ -44,21 +66,49 @@ const addSubmission = (req, res, next) =>
     });
 }
 
-const addSubmissionDep  = (req, res, next) =>
+const deleteSubmission = (req, res, next) =>
 {
-    //let pathImage = `${req.protocol}://${req.get("host")}/api/v1/${process.env.IMAGE_ACCESS_DIRECTORY}/${req.file.filename}`;
-    //console.log(pathImage);
-    //console.log(req.body);
-    //console.log(req.file)
-    let a = submissionFunctions.contentConstructor(req);
-
-    if(!a)
+    submissionModel.findOne({_id: req.params.id}).then( currentSubmission => 
     {
-        return res.status(400).json({message: "Veuillez inclure au moins un texte ou une image"});
-    }
-    //console.log(a);
-    res.status(200).json(a);
+        console.log("Logged User: " + req.auth.userId);
+        console.log("Proprietaire : " + currentSubmission.userId);
+        console.log("User Role : " + req.auth.role);
+        /* Peut être utiliser une fonction async pour recuperer le role au lieu de passer par token
+        let userRole;
+        userModel.findOne({_id: req.auth.userId}).then( user => {userRole = user.role });
+        */
+        
+        if(req.auth.userId != currentSubmission.userId && req.auth.role != "admin")
+        {
+            res.status(401).json({message: "Utilisateur non autorisé"});
+        }
+        else if(req.auth.userId == currentSubmission.userId || req.auth.role == "admin")
+        {
+            const imageFileName = currentSubmission.content.imageUrl.split(`/${process.env.IMAGE_ACCESS_DIRECTORY}/`)[1];
+            console.log(imageFileName);
+
+            if(req.auth.role == "admin"){console.log("Admin POWEER")};
+            
+            fs.unlink(`${process.env.IMAGE_UPLOAD_DIRECTORY}/${imageFileName}`, () =>
+            {
+                submissionModel.deleteOne({_id: req.params.id}).then( () => 
+                {
+                    res.status(200).json(currentSubmission);
+                    //res.status(200).json({message: "Suppression effectuée avec succès!"});
+                })
+                .catch(error => res.status(400).json({error}));
+            });
+        }
+        else
+        {
+            res.status(404).json({message: "Erreur"});
+        }
+    })
+    .catch( error => 
+    {
+        res.status(500).json({ error });
+    });
 
 }
 
-module.exports = {addSubmission, addSubmissionDep};
+module.exports = {getAllSubmissions, getSubmission, addSubmission, deleteSubmission};

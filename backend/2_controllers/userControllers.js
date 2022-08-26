@@ -65,7 +65,7 @@ const login = (req, res, next) =>
                     userId: user._id,
                     token: jsonWebToken.sign
                     (
-                        { userId: user._id, email: user.email},
+                        { userId: user._id, email: user.email, role: user.role},
                         `${process.env.JWT_SECRET_KEY}`,
                         { expiresIn: `${process.env.TOKEN_TIME_SPAN}` }
                     )

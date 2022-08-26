@@ -1,0 +1,42 @@
+Tout est modifié sauf IMG:
+
+req?.file
+undefined
+req?.body
+{
+  name: 'Test for modify [M]',
+  manufacturer: 'blank [M]',
+  description: 'blank [M]',
+  mainPepper: 'blank [M]',
+  heat: 4,
+  userId: '6308c340f29f688394e33886'
+}
+
+Juste le titre est modifié
+req?.body
+{
+  name: 'Test for modify [M] [M]',
+  manufacturer: 'blank [M]',
+  description: 'blank [M]',
+  mainPepper: 'blank [M]',
+  heat: 4,
+  userId: '6308c340f29f688394e33886'
+}
+
+Juste l'image est modifié
+
+req?.file
+{
+  fieldname: 'image',
+  originalname: 'wallpaperflare.com_wallpaper(7).jpg',
+  encoding: '7bit',
+  mimetype: 'image/jpeg',
+  destination: 'uploadDirectory',
+  filename: 'wallpaperflare_1661519051635.jpg',
+  path: 'uploadDirectory/wallpaperflare_1661519051635.jpg',
+  size: 5016542
+}
+req?.body
+[Object: null prototype] {
+  sauce: '{"name":"Test for modify [M] [M]","manufacturer":"blank [M]","description":"blank [M]","mainPepper":"blank [M]","heat":4,"userId":"6308c340f29f688394e33886"}'
+}
