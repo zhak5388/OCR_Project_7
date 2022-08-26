@@ -5,8 +5,8 @@ const router = express.Router();
 /* TO BE CHANGED */
 //const userControllers = require("../controllers/userControllers");
 const submissionControllers = require("../2_controllers/submissionControllers");
-const authorization = require("../2_middlewares/authorize")
-const multer = require("../2_middlewares/multer_config")
+const authorization = require("../2_middlewares/authorize");
+const multer = require("../2_middlewares/multer_config");
 
 //Configuration de la route "submissions"
 //L'ordre est important

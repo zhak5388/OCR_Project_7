@@ -8,13 +8,13 @@ const mongoDbUsername = process.env.MONGODB_USERNAME;
 const mongoDdPassword = process.env.MONGODB_PASSWORD;
 const imageUploadDirectory = process.env.IMAGE_UPLOAD_DIRECTORY;
 const imageAccessDirectory = process.env.IMAGE_ACCESS_DIRECTORY;
+const avatarUploadDirectory = process.env.AVATAR_UPLOAD_DIRECTORY;
+const avatarAccessDirectory = process.env.AVATAR_ACCESS_DIRECTORY;
 
 //Importation des modules "routes"
-/* TO BE CHANGED */
-//const userRoutes = require("./routes/userRoutes");
-//const sauceRoutes = require("./routes/sauceRoutes");
 const userRoutes = require("./1_routes/userRoutes");
 const submissionRoutes = require("./1_routes/submissionRoutes");
+const avatarRoutes = require("./1_routes/avatarRoutes");
 
 //Importation du module express
 const app = express();
@@ -45,15 +45,13 @@ app.use((req, res, next) =>
 });
 
 //Appel des routes
-/* TO BE CHANGED */
-//app.use("/api/auth", userRoutes);
-//app.use("/api/sauces", sauceRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/submission", submissionRoutes);
+app.use("/api/v1/avatar", avatarRoutes);
 
 //Permet la consultation des images stockées
-/* TO BE CHANGED */
 app.use("/api/v1/" + imageAccessDirectory, express.static(path.join(__dirname, imageUploadDirectory)));
+app.use("/api/v1/" + avatarAccessDirectory, express.static(path.join(__dirname, avatarUploadDirectory)));
 
 //Exportation de la fonction app
 module.exports = app;

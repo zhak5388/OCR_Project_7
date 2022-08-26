@@ -30,6 +30,16 @@ function contentConstructor(req)
         {
             contentObjectToTreat.imageContent = "";
         }
+
+        else if(req?.body.currentImageUrl)
+        {
+            contentObjectToTreat.imageContent = req.body.currentImageUrl;
+        }
+
+        else
+        {
+            contentObjectToTreat.imageContent = "";
+        }
     }
 
     let userEmail = req?.auth.email;

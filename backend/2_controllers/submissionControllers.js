@@ -67,40 +67,58 @@ const addSubmission = (req, res, next) =>
 }
 /*
 L'ID du post est passé en req.params
+req.body.imageContent est uniquement fourni si:
+    Suppression image existante
+    Ajout d'une image
+    Mofification image
+=> Non fourni lorsque pas de modif.
 
 */
 const modifySubmisison = (req, res, next) =>
 {
-    //Permet d'avoir un content bon
-    let contentObject = submissionFunctions.contentConstructor(req);
-    console.log(contentObject);
-
     submissionModel.findOne({_id: req.params.id}).then( currentSubmission =>
     {
+        if (currentSubmission?.content.imageUrl)
+        {
+            req.body.currentImageUrl = currentSubmission.content.imageUrl;
+        }
+        let contentObject = submissionFunctions.contentConstructor(req);
+        console.log(req.body);
+        console.log(currentSubmission);
         if(req.auth.userId != currentSubmission.userId && req.auth.role != "admin")
         {
             res.status(401).json({message: "Utilisateur non autorisé"});
         }
         else if(req.auth.userId == currentSubmission.userId || req.auth.role == "admin")
-        {
-            if(req.auth.role == "admin")
+        {            
+            if (req.body.imageContent == "toBeRemoved" || (req?.file && (currentSubmission.content.type != "textOnly")))
             {
-                console.log("Admin POWEER");
-                res.status(200).json({message: "your are the admin"});
+                if(!currentSubmission?.content.imageUrl)
+                {
+                    return res.status(400).json({message: "Bad Input"});
+                }
+                const imageFileName = currentSubmission.content.imageUrl.split(`/${process.env.IMAGE_ACCESS_DIRECTORY}/`)[1];
+                fs.unlink(`${process.env.IMAGE_UPLOAD_DIRECTORY}/${imageFileName}`, () =>
+                {
+                     submissionModel.updateOne({_id: req.params.id}, {content: contentObject, lastDateModification: Date.now(), lastModifier: req.auth.userId}).then( () => 
+                     {
+                        console.log("SUppression ancienne image");
+                        res.status(200).json({message: "Modification effectuée avec succès!"});
+                    })
+                    .catch( error => res.status(400).json({error}) );
+                });
+                
             }
+
             else
             {
-                //res.status(200).json(currentSubmission);
-                res.status(200).json({message: "your are the owner"});
+                submissionModel.updateOne({_id: req.params.id}, {content: contentObject, lastDateModification: Date.now(), lastModifier: req.auth.userId}).then( () => 
+                {
+                    console.log("Pas de suppression dimage");
+                    res.status(200).json({message: "Modification effectuée avec succès!"});
+                })
+                .catch( error => res.status(400).json({error}) );
             }
-            /*
-            submissionModel.updateOne({_id: req.params.id},{}).then( () => 
-            {
-                res.status(200).json({message: "Modification succès"})
-            })
-            .catch( error => res.status(400).json({error}) );
-            */
-            
 
         }
         else
