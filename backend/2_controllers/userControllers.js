@@ -99,7 +99,7 @@ req.params.id
 */
 const changeAvatar = (req, res, next) =>
 {
-    if(!req?.body.avatarId || !(avatarObject[req?.body.avatarId]))
+    if(!req?.body.avatarId)
     {
         return res.status(400).json({message: "Bad request"});
     }
@@ -113,7 +113,12 @@ const changeAvatar = (req, res, next) =>
             break;
         }
     }
-
+    
+    if(chosenAvatarFileName == undefined)
+    {
+        return res.status(400).json({message: "Bad request. Avatar was not found in database"});
+    }
+    
     userModel.findOne({_id: req.params.id}).then(currentUser =>
     {
         if(req.auth.userId != currentUser._id)

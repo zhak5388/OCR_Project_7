@@ -3,13 +3,56 @@ const userModel = require("../3_models/userModel");
 const submissionFunctions = require("../utils.js");
 const fs = require("fs");
 
+/*
+Optionnel:
+req?.query.orderBy = "newest, oldest, mostPopular, lessPopular"
+*/
 const getAllSubmissions = (req, res, next) =>
 {
-    submissionModel.find().then(allSubmissions => 
+    if(req?.query.orderBy == "newest")
     {
-        res.status(200).json(allSubmissions);
-    })
-    .catch(error => res.status(400).json({error}));
+        submissionModel.find().sort( { dateCreation: -1 } ).then(allSubmissions => 
+        {
+            res.status(200).json(allSubmissions);
+        })
+        .catch(error => res.status(400).json({error}));
+    }
+
+    else if (req?.query.orderBy == "oldest")
+    {
+        submissionModel.find().sort( { dateCreation: 1 } ).then(allSubmissions => 
+        {
+            res.status(200).json(allSubmissions);
+        })
+        .catch(error => res.status(400).json({error}));
+    }
+
+    else if (req?.query.orderBy == "mostPopular")
+    {
+        submissionModel.find().sort( { likes: -1 } ).then(allSubmissions => 
+        {
+            res.status(200).json(allSubmissions);
+        })
+        .catch(error => res.status(400).json({error}));
+    }
+
+    else if (req?.query.orderBy == "lessPopular")
+    {
+        submissionModel.find().sort( { likes: 1 } ).then(allSubmissions => 
+        {
+            res.status(200).json(allSubmissions);
+        })
+        .catch(error => res.status(400).json({error}));
+    }
+
+    else
+    {
+        submissionModel.find().sort( { dateCreation: -1 } ).then(allSubmissions => 
+        {
+            res.status(200).json(allSubmissions);
+        })
+        .catch(error => res.status(400).json({error}));
+    }
 }
 
 //le req.params doit se mettre dans le front?
@@ -171,7 +214,11 @@ const deleteSubmission = (req, res, next) =>
     {
         res.status(500).json({ error });
     });
-
 }
 
-module.exports = {getAllSubmissions, getSubmission, addSubmission, modifySubmisison, deleteSubmission};
+const likeSubmission = (req, res, next) =>
+{
+    res.status(200).json({message: "test Postman"});
+}
+
+module.exports = {getAllSubmissions, getSubmission, addSubmission, modifySubmisison, deleteSubmission, likeSubmission};
