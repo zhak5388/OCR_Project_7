@@ -13,6 +13,6 @@ router.get("/:id", authorization.authorize, submissionControllers.getSubmission)
 router.post("/", authorization.authorize, multer.uploadImage, submissionControllers.addSubmission);
 router.put("/:id", authorization.authorize, multer.uploadImage, submissionControllers.modifySubmisison);
 router.delete("/:id", authorization.authorize, submissionControllers.deleteSubmission);
-router.post("/:id/like", authorization.authorize, submissionControllers.likeSubmission);
+router.post("/:id/like", authorization.authorize, submissionControllers.reactionToSubmission);
 
 module.exports = router;
