@@ -1,6 +1,6 @@
 backend/node_modules
 backend/.env
-backend/public
+backend/public/submission
 backend/modifySauceP6Results
 test
 test2f
