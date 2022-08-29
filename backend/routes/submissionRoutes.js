@@ -7,7 +7,6 @@ const authorization = require("../middlewares/authorize");
 const multer = require("../middlewares/multer_config");
 
 //Configuration de la route "submissions"
-//L'ordre est important
 router.get("/", authorization.authorize, submissionControllers.getAllSubmissions);
 router.get("/:id", authorization.authorize, submissionControllers.getSubmission);
 router.post("/", authorization.authorize, multer.uploadImage, submissionControllers.addSubmission);

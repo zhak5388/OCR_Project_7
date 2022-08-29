@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 //Importation des controlleurs utilisés pour la route "utilisateurs"
-/* TO BE CHANGED */
 const userControllers = require("../controllers/userControllers");
 const authorization = require("../middlewares/authorize");
 

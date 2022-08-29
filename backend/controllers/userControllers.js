@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt");
 const jsonWebToken = require("jsonwebtoken");
 const userModel = require("../models/userModel");
 const avatarObject = require("../data/avatar.json");
-//const {check, validationResult} = require("express-validator");
 
 //Contrôleur permettant d'ajouter un utilisateur
 // Entrée: req.body.email, req.body.password, req.body.passwordRepeated
@@ -38,7 +37,6 @@ const signUp = (req, res, next) =>
     }
     else
     {
-        /*CODE HTTP*/
         res.status(400).json({message: "Les mots de passes ne correspondent pas."});
     }
 };
