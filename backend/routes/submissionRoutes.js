@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 //Importation des controlleurs utilisés pour la route "submissions"
-const submissionControllers = require("../2_controllers/submissionControllers");
-const authorization = require("../2_middlewares/authorize");
-const multer = require("../2_middlewares/multer_config");
+const submissionControllers = require("../controllers/submissionControllers");
+const authorization = require("../middlewares/authorize");
+const multer = require("../middlewares/multer_config");
 
 //Configuration de la route "submissions"
 //L'ordre est important

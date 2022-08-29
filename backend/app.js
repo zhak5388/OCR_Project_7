@@ -12,9 +12,9 @@ const avatarUploadDirectory = process.env.AVATAR_UPLOAD_DIRECTORY;
 const avatarAccessDirectory = process.env.AVATAR_ACCESS_DIRECTORY;
 
 //Importation des modules "routes"
-const userRoutes = require("./1_routes/userRoutes");
-const submissionRoutes = require("./1_routes/submissionRoutes");
-const avatarRoutes = require("./1_routes/avatarRoutes");
+const userRoutes = require("./routes/userRoutes");
+const submissionRoutes = require("./routes/submissionRoutes");
+const avatarRoutes = require("./routes/avatarRoutes");
 
 //Importation du module express
 const app = express();

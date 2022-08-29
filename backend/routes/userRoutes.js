@@ -3,8 +3,8 @@ const router = express.Router();
 
 //Importation des controlleurs utilisés pour la route "utilisateurs"
 /* TO BE CHANGED */
-const userControllers = require("../2_controllers/userControllers");
-const authorization = require("../2_middlewares/authorize");
+const userControllers = require("../controllers/userControllers");
+const authorization = require("../middlewares/authorize");
 
 //Configuration de la route "utilisateurs"
 router.post("/signup", userControllers.signUp);

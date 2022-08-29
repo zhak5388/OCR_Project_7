@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jsonWebToken = require("jsonwebtoken");
-const userModel = require("../3_models/userModel");
-const avatarObject = require("../6_data/avatar.json");
+const userModel = require("../models/userModel");
+const avatarObject = require("../data/avatar.json");
 //const {check, validationResult} = require("express-validator");
 
 //Contrôleur permettant d'ajouter un utilisateur

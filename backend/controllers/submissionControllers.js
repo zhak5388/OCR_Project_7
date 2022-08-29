@@ -1,5 +1,5 @@
-const submissionModel = require("../3_models/submissionModel");
-const userModel = require("../3_models/userModel");
+const submissionModel = require("../models/submissionModel");
+const userModel = require("../models/userModel");
 const submissionFunctions = require("../utils.js");
 const fs = require("fs");
 

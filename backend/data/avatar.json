@@ -1,47 +1,47 @@
 [
     {
         "id": "1",
-        "avatarAlt": "",
+        "avatarAlt": "Fleur blanche à cœur jaune",
         "avatarFileName": "avatar_1.jpg" 
     },
     {
         "id": "2",
-        "avatarAlt": "",
+        "avatarAlt": "Chat à poil marron",
         "avatarFileName": "avatar_2.jpg" 
     },
     {
         "id": "3",
-        "avatarAlt": "",
+        "avatarAlt": "Iceberg",
         "avatarFileName": "avatar_3.jpg" 
     },
     {
         "id": "4",
-        "avatarAlt": "",
+        "avatarAlt": "Montagne sur un lit de nuages",
         "avatarFileName": "avatar_4.jpg" 
     },
     {
         "id": "5",
-        "avatarAlt": "",
+        "avatarAlt": "Fraises dans une boîte",
         "avatarFileName": "avatar_5.jpg" 
     },
     {
         "id": "6",
-        "avatarAlt": "",
+        "avatarAlt": "Livre ouvert",
         "avatarFileName": "avatar_6.jpg" 
     },
     {
         "id": "7",
-        "avatarAlt": "",
+        "avatarAlt": "Tasse de café au lait",
         "avatarFileName": "avatar_7.jpg" 
     },
     {
         "id": "8",
-        "avatarAlt": "",
+        "avatarAlt": "Colibri butinant une fleur",
         "avatarFileName": "avatar_8.jpg" 
     },
     {
         "id": "9",
-        "avatarAlt": "",
+        "avatarAlt": "Lac sur prairie",
         "avatarFileName": "avatar_9.jpg" 
     }
 ]

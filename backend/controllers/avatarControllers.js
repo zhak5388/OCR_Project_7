@@ -1,4 +1,4 @@
-const avatarObject = require("../6_data/avatar.json");
+const avatarObject = require("../data/avatar.json");
 
 const getAllAvatars = (req, res, next) =>
 {
