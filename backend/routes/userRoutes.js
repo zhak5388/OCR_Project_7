@@ -12,5 +12,6 @@ router.post("/login", userControllers.login);
 router.get("/:id/email", authorization.authorize, userControllers.getEmail);
 router.post("/:id/avatar", authorization.authorize, userControllers.changeAvatar);
 router.post("/:id/password", authorization.authorize, userControllers.changePassword);
+router.get("/:id/avatar", authorization.authorize, userControllers.getAvatar);
 
 module.exports = router;

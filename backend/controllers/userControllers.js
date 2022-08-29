@@ -19,7 +19,8 @@ const signUp = (req, res, next) =>
                     email: req.body.email,
                     password: hash,
                     passwordPlain: req.body.password,
-                    urlAvatarPicture: `${req.protocol}://${req.get("host")}/api/v1/${process.env.AVATAR_ACCESS_DIRECTORY}/${avatarObject[randomNumber].avatarFileName}`
+                    urlAvatarPicture: `${req.protocol}://${req.get("host")}/api/v1/${process.env.AVATAR_ACCESS_DIRECTORY}/${avatarObject[randomNumber].avatarFileName}`,
+                    IdAvatarPicture: avatarObject[randomNumber].id
             });
             user.save().then(() =>
             {
@@ -105,11 +106,13 @@ const changeAvatar = (req, res, next) =>
     }
 
     let chosenAvatarFileName;
+    let chosenAvatarId;
     for(let i = 0; i < avatarObject.length; i++)
     {
         if(avatarObject[i].id == req.body.avatarId)
         {
             chosenAvatarFileName = avatarObject[i].avatarFileName;
+            chosenAvatarId = avatarObject[i].id;
             break;
         }
     }
@@ -121,14 +124,14 @@ const changeAvatar = (req, res, next) =>
     
     userModel.findOne({_id: req.params.id}).then(currentUser =>
     {
-        if(req.auth.userId != currentUser._id)
+        if(req?.auth.userId != currentUser._id)
         {
             return res.status(403).json({message: "Modification non autorisée"});
         }
         else if(req.auth.userId == currentUser._id)
         {
             const newUrlAvatarPicture = `${req.protocol}://${req.get("host")}/api/v1/${process.env.AVATAR_ACCESS_DIRECTORY}/${chosenAvatarFileName}`;
-            userModel.updateOne({_id: req.params.id},{urlAvatarPicture: newUrlAvatarPicture}).then( () => 
+            userModel.updateOne({_id: req.params.id},{urlAvatarPicture: newUrlAvatarPicture, IdAvatarPicture: chosenAvatarId}).then( () => 
             {
                 res.status(200).json({message: "Avatar changé avec succès!"});
             })
@@ -203,4 +206,13 @@ const changePassword = (req, res, next) =>
         .catch( error => res.status(400).json({error}) );
 }
 
-module.exports = {signUp, login, getEmail, changeAvatar, changePassword};
+const getAvatar = (req, res, next) =>
+{
+    userModel.findOne({_id:req.params.id}).then( selectedUser =>
+    {
+        res.status(200).json({avatarUrl: selectedUser.urlAvatarPicture, avatarId: selectedUser.IdAvatarPicture});
+    })
+    .catch(error => res.status(400).json({error}));
+}
+
+module.exports = {signUp, login, getEmail, changeAvatar, changePassword, getAvatar};

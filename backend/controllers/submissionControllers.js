@@ -55,10 +55,9 @@ const getAllSubmissions = (req, res, next) =>
     }
 }
 
-//le req.params doit se mettre dans le front?
+
 const getSubmission = (req, res, next) =>
 {
-    //console.log(req.params);
     submissionModel.findOne({_id: req.params.id}).then(selectedSubmission => 
     {
         res.status(200).json(selectedSubmission);
@@ -68,17 +67,10 @@ const getSubmission = (req, res, next) =>
 
 //Entrée
 /*
-Body
-req.body (.textContent  .imageContentAlt)
-req.auth (.email .userId)
-req.file
-
 FormData
 imageContent
 textContent
 imageContentAlt
-//Misc
-req?.body.textContent.length != 0
 */
 const addSubmission = (req, res, next) =>
 {
@@ -100,8 +92,7 @@ const addSubmission = (req, res, next) =>
 
     submission.save().then( () =>
     {
-        //res.status(201).json({message: "Le post a été crée avec succès!"});
-        res.status(200).json(submission);
+        res.status(201).json({message: "Le post a été crée avec succès!"});
     })
     .catch(error => 
     {
@@ -115,7 +106,6 @@ req.body.imageContent est uniquement fourni si:
     Ajout d'une image
     Mofification image
 => Non fourni lorsque pas de modif.
-
 */
 const modifySubmisison = (req, res, next) =>
 {
@@ -125,9 +115,9 @@ const modifySubmisison = (req, res, next) =>
         {
             req.body.currentImageUrl = currentSubmission.content.imageUrl;
         }
+
         let contentObject = submissionFunctions.contentConstructor(req);
-        console.log(req.body);
-        console.log(currentSubmission);
+
         if(req.auth.userId != currentSubmission.userId && req.auth.role != "admin")
         {
             res.status(401).json({message: "Utilisateur non autorisé"});
@@ -140,12 +130,17 @@ const modifySubmisison = (req, res, next) =>
                 {
                     return res.status(400).json({message: "Bad Input"});
                 }
+                
+                if(req.body.imageContent == "toBeRemoved" && currentSubmission.content.type == "imageOnly")
+                {
+                    return res.status(400).json({error: "Impossible de modifier le post en laissant vide"});
+                }
+
                 const imageFileName = currentSubmission.content.imageUrl.split(`/${process.env.IMAGE_ACCESS_DIRECTORY}/`)[1];
                 fs.unlink(`${process.env.IMAGE_UPLOAD_DIRECTORY}/${imageFileName}`, () =>
                 {
                      submissionModel.updateOne({_id: req.params.id}, {content: contentObject, lastDateModification: Date.now(), lastModifier: req.auth.userId}).then( () => 
                      {
-                        console.log("SUppression ancienne image");
                         res.status(200).json({message: "Modification effectuée avec succès!"});
                     })
                     .catch( error => res.status(400).json({error}) );
@@ -157,7 +152,6 @@ const modifySubmisison = (req, res, next) =>
             {
                 submissionModel.updateOne({_id: req.params.id}, {content: contentObject, lastDateModification: Date.now(), lastModifier: req.auth.userId}).then( () => 
                 {
-                    console.log("Pas de suppression dimage");
                     res.status(200).json({message: "Modification effectuée avec succès!"});
                 })
                 .catch( error => res.status(400).json({error}) );
@@ -175,15 +169,7 @@ const modifySubmisison = (req, res, next) =>
 const deleteSubmission = (req, res, next) =>
 {
     submissionModel.findOne({_id: req.params.id}).then( currentSubmission => 
-    {
-        console.log("Logged User: " + req.auth.userId);
-        console.log("Proprietaire : " + currentSubmission.userId);
-        console.log("User Role : " + req.auth.role);
-        /* Peut être utiliser une fonction async pour recuperer le role au lieu de passer par token
-        let userRole;
-        userModel.findOne({_id: req.auth.userId}).then( user => {userRole = user.role });
-        */
-        
+    {   
         if(req.auth.userId != currentSubmission.userId && req.auth.role != "admin")
         {
             res.status(401).json({message: "Utilisateur non autorisé"});
@@ -191,16 +177,12 @@ const deleteSubmission = (req, res, next) =>
         else if(req.auth.userId == currentSubmission.userId || req.auth.role == "admin")
         {
             const imageFileName = currentSubmission.content.imageUrl.split(`/${process.env.IMAGE_ACCESS_DIRECTORY}/`)[1];
-            console.log(imageFileName);
-
-            if(req.auth.role == "admin"){console.log("Admin POWEER")};
             
             fs.unlink(`${process.env.IMAGE_UPLOAD_DIRECTORY}/${imageFileName}`, () =>
             {
                 submissionModel.deleteOne({_id: req.params.id}).then( () => 
                 {
-                    res.status(200).json(currentSubmission);
-                    //res.status(200).json({message: "Suppression effectuée avec succès!"});
+                    res.status(200).json({message: "Suppression effectuée avec succès!"});
                 })
                 .catch(error => res.status(400).json({error}));
             });

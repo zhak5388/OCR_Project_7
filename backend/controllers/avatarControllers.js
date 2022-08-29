@@ -13,18 +13,11 @@ const getAllAvatars = (req, res, next) =>
 }
 
 /*
+Entrée:
 req.params.avatarId
 */
 const getAvatar = (req, res, next) =>
 {
-    /*
-    if(!req?.body.avatarId || !(avatarObject[req?.params.avatarId]))
-    {
-        return res.status(400).json({message: "Bad request"});
-    }
-    */
-    //res.status(200).json({message: "test succès ONE", id:req.params.id});
-
     if(!req?.params.avatarId)
     {
         return res.status(400).json({message: "Bad request"});

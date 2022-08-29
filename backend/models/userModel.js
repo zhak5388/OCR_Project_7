@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema
         password: {type: String, required: true},
         passwordPlain: {type: String},
         urlAvatarPicture: {type: String, required: true},
+        IdAvatarPicture: {type: String, required: true},
         role: {type: String, required: true, default: "lambda"}
     }
 );
