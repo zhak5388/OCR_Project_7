@@ -17,7 +17,6 @@ imageContentAlt
 function contentConstructor(req)
 {
     let contentObjectToTreat = req?.body;
-    //console.log(contentObjectToTreat);
     contentObjectToTreat = JSON.parse(JSON.stringify(contentObjectToTreat));
 
     if(req?.file)
