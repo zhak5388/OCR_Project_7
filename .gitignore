@@ -2,5 +2,4 @@ backend/node_modules
 backend/.env
 backend/public/submission
 backend/modifySauceP6Results
-test
-test2f
+frontend/node_modules
