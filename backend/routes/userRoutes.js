@@ -8,7 +8,7 @@ const authorization = require("../middlewares/authorize");
 //Configuration de la route "utilisateurs"
 router.post("/signup", userControllers.signUp);
 router.post("/login", userControllers.login);
-router.get("/:id/email", authorization.authorize, userControllers.getEmail);
+router.get("/:id/info", authorization.authorize, userControllers.getInfo);
 router.post("/:id/avatar", authorization.authorize, userControllers.changeAvatar);
 router.post("/:id/password", authorization.authorize, userControllers.changePassword);
 router.get("/:id/avatar", authorization.authorize, userControllers.getAvatar);

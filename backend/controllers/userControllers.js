@@ -84,11 +84,11 @@ const login = (req, res, next) =>
         res.status(500).json({error});
     });
 }
-const getEmail = (req, res, next) =>
+const getInfo = (req, res, next) =>
 {
     userModel.findOne({_id:req.params.id}).then( selectedUser =>
     {
-        res.status(200).json(selectedUser.email);
+        res.status(200).json({email: selectedUser.email, role: selectedUser.role});
     })
     .catch(error => res.status(400).json({error}));
 }
@@ -213,4 +213,4 @@ const getAvatar = (req, res, next) =>
     .catch(error => res.status(400).json({error}));
 }
 
-module.exports = {signUp, login, getEmail, changeAvatar, changePassword, getAvatar};
+module.exports = {signUp, login, getInfo, changeAvatar, changePassword, getAvatar};
