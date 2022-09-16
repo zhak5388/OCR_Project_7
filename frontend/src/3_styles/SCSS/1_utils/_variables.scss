@@ -1,0 +1,26 @@
+$color-primary:#ea1c03; //Modifiée
+$color-secondary:#FFd7d7; //Original
+$color-tertiary:#353535;//Modifiée
+$color-error: red;
+
+$background-primary:#FFFFFF;
+$background-secondary:#ededed;//#e1e1e1;//#fafafa;
+
+//$background-primary:#FFFFFF;
+//$background-secondary:#745f5f; //Pour box login
+//$background-tertiary:#eaeaea; //a revoir
+//$background-quaternary:#353535; //a revoir
+
+$height-header:80px;
+$height-footer:55px;
+
+$width-content:65%;
+$width-additionnal-header_footer: 5%;
+$side-edge:30px;
+
+//Variables pour les login/signUp Box;
+$login_signup-box-width:400px;
+$login_signup-box-space-between-field: 20px;
+$login_signup-box-space-between-element: 5px;
+$login_signup-box-font-size-label:15px;
+$login_signup-box-font-size-error:14px;

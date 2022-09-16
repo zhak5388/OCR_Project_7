@@ -18,7 +18,7 @@ const NotFoundPage = () =>
     return(
         <React.StrictMode>
             <HeaderComponent value={navElement}/>
-            <div>
+            <div className="containerWrapper">
                 <main>
                     <NotFoundComponent>
                         {document.title="Groupomania - 404"}

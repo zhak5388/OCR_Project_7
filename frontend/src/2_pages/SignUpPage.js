@@ -18,7 +18,7 @@ const SignUpPage = () =>
     return(
         <React.StrictMode>
             <HeaderComponent value={navElement}/>
-            <div>
+            <div className="containerWrapper">
                 <main>
                     <SignUpComponent>
                         {document.title="Groupomania - Inscription"}

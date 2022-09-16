@@ -1,0 +1,12 @@
+main
+{
+    box-sizing: border-box;
+    padding-left: $side-edge;
+    padding-right: $side-edge;
+
+    background-color: $background-secondary;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

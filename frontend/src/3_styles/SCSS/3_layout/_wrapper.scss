@@ -1,0 +1,22 @@
+//containerWrapper fait reference à la balise enveloppant main
+//Permet de centrer le contenu
+header, footer, .containerWrapper
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center
+}
+
+//contentWrapper fait reference à la balise enveloppant le contenu du header et footer
+//Permet de donner une marge additionnel au header et footer
+.contentWrapper
+{
+    //width: $width-content + $width-additionnal-header_footer;
+    width: $width-content;
+}
+
+main
+{
+    width: $width-content;
+}

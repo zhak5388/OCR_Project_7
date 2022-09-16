@@ -18,7 +18,7 @@ const LoginPage = () =>
     return(
         <React.StrictMode>
             <HeaderComponent value={navElement}/>
-            <div>
+            <div className="containerWrapper">
                 <main>
                     <LoginComponent>
                     {document.title="Groupomania - Connection"}
