@@ -40,8 +40,9 @@ header
            
             li
             {
-                a
+                a, span
                 {
+                    cursor: pointer;
                     font-weight: bold;
                     font-size: 20px;
                     &:hover

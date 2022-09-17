@@ -1,33 +1,39 @@
-import React, {useContext, useEffect} from "react";
-import { AuthContext } from "../4_utils/AuthContext";
+import React, { useEffect, useState } from "react";
 import FooterComponent from "../1_Components/FooterComponent";
-import HeaderComponent from "../1_Components/HeaderComponent";
 import LoginComponent from "../1_Components/LoginComponent";
+import HeaderComponent from "../1_Components/HeaderComponent";
+import areTokenAvailable from "../4_utils/tokenChecker";
+import { ReloadProvider } from "../1_Components/ReloadComponent";
 
-const LoginPage = () =>
-{
-    const { navElement, setNavElement } = useContext(AuthContext);
-    useEffect(() =>
-    {
-        setNavElement([
-            {"link":"../login", "text":"Se connecter"},
-            {"link":"../signup", "text":"S'inscrire"}
-        ]);
-    },[]);
+const LoginPage = () => {
+    const [tokenState, setTokenState] = useState(true);
+    useEffect(() => {
+        if (areTokenAvailable() === true) {
+            window.location.href = "../home";
+        }
+        else {
+            setTokenState(false);
+        }
+    }, []);
 
-    return(
+    return (
         <React.StrictMode>
-            <HeaderComponent value={navElement}/>
-            <div className="containerWrapper">
-                <main>
-                    <LoginComponent>
-                    {document.title="Groupomania - Connection"}
-                    </LoginComponent>
-                </main>
-            </div>
-            <FooterComponent/>
+            <ReloadProvider>
+                <HeaderComponent />
+                <div className="containerWrapper">
+                    <main>
+                        {(tokenState === false) ?
+                            <LoginComponent>
+                                {document.title = "Groupomania - Connection"}
+                            </LoginComponent> : <p>Chargement en cours...</p>
+                        }
+                    </main>
+                </div>
+                <FooterComponent />
+            </ReloadProvider>
         </React.StrictMode>
-    );
+    )
+
 }
 
 export default LoginPage;

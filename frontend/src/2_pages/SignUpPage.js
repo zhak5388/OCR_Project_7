@@ -1,31 +1,33 @@
-import React, {useContext, useEffect} from "react";
-import { AuthContext } from "../4_utils/AuthContext";
-import HeaderComponent from "../1_Components/HeaderComponent";
+import React, { useEffect, useState } from "react";
 import SignUpComponent from "../1_Components/SignUpComponent";
 import FooterComponent from "../1_Components/FooterComponent";
+import HeaderComponent from "../1_Components/HeaderComponent";
+import areTokenAvailable from "../4_utils/tokenChecker";
 
 
-const SignUpPage = () =>
-{
-    const { navElement, setNavElement } = useContext(AuthContext);
-    useEffect(() =>
-    {
-        setNavElement([
-            {"link":"../login", "text":"Se connecter"},
-            {"link":"../signup", "text":"S'inscrire"}
-        ]);
-    },[]);
-    return(
+const SignUpPage = () => {
+    const [tokenState, setTokenState] = useState(true);
+    useEffect(() => {
+        if (areTokenAvailable() === true) {
+            window.location.href = "../home";
+        }
+        else {
+            setTokenState(false);
+        }
+    }, []);
+
+    return (
         <React.StrictMode>
-            <HeaderComponent value={navElement}/>
+            <HeaderComponent />
             <div className="containerWrapper">
                 <main>
-                    <SignUpComponent>
-                        {document.title="Groupomania - Inscription"}
-                    </SignUpComponent>
+                    {(tokenState === false) ?
+                        <SignUpComponent>
+                            {document.title = "Groupomania - Inscription"}
+                        </SignUpComponent> : <p>Chargement en cours...</p>}
                 </main>
             </div>
-            <FooterComponent/>
+            <FooterComponent />
         </React.StrictMode>
     );
 }

@@ -18,3 +18,24 @@
         cursor: pointer;
     }
 }
+
+.other_button
+{
+    border-style: none;
+    border: 2px solid $color-primary;
+    //box-shadow: 3px 3px rgba($color: $background-secondary, $alpha: 0.7), -3px 3px rgba($color: $background-secondary, $alpha: 0.7);
+    
+    background-color: $color-primary;
+    border-radius: 20px;
+    padding: 3px;
+    
+    color: $background-primary;
+    font-weight: bold;
+
+    &:hover
+    {
+        background-color: $background-primary;
+        color:$color-primary;
+        cursor: pointer;
+    }
+}

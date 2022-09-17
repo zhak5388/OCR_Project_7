@@ -3,3 +3,5 @@ backend/.env
 backend/public/submission
 backend/modifySauceP6Results
 frontend/node_modules
+testing
+frontend/src/6_Depreciated

@@ -1,14 +1,22 @@
-import React, { useState } from "react";
-import placeholder from "../5_misc/image_placeholder.png";
+import React, { useContext, useEffect, useState } from "react";
+import { removeInvalidToken } from "../4_utils/tokenChecker";
+import { ReloadContext } from "./ReloadComponent";
 
 const PostMakerComponent = () => {
     const [textContent, setTextContent] = useState("");
     const [imageContent, setImageContent] = useState("");
     const [imageContentAlt, setImageContentAlt] = useState("");
+    const [{ imagePreviewSrc, imagePreviewAlt }, setImagePreview] = useState({ imagePreviewSrc: "", imagePreviewAlt: "" });
+    const reload = useContext(ReloadContext);
 
-    //const [{alt, src}, setImg] = useState({src: placeholder,alt: 'Upload an Image'});
-    const [{imagePreviewSrc, imagePreviewAlt}, setImagePreview] = useState({imagePreviewSrc: placeholder, imagePreviewAlt: "Image générique"});
-    //console.log(imagePreview);
+
+    useEffect(() => {
+        setTextContent("");
+        setImageContent("");
+        setImageContentAlt("");
+        document.getElementById("textContent").value = "";
+    }, [reload.homePage])
+
 
     const createPost = (e) => {
         e.preventDefault();
@@ -31,39 +39,41 @@ const PostMakerComponent = () => {
             })
             .then((response) => {
                 if (response.ok) {
-                    return response.json();
+                    alert("Le post a été crée avec succès!");
                 }
                 else {
-                    alert("Une erreur est survenue");
+                    alert("Votre session a expirée. Vous allez être redirigé vers la page de connexion");
+                    removeInvalidToken();
+                    window.location.href = "../login";
                 }
             })
-            .catch(() => alert("Une erreur interne est survenue"));
+            .catch(() => {
+                alert("Une erreur interne est survenue. Vous allez être redirigé vers la page de connexion");
+                removeInvalidToken();
+                window.location.href = "../login";
+            });
+        reload.setHomePage(true);
     }
 
-    /*
-    const handleImagePreview = (e) =>
-    {
-        if(e.target.files[0]) {
-            setImg({
-                src: URL.createObjectURL(e.target.files[0]),
-                alt: e.target.files[0].name
-            });    
-        } 
-    }
-    */
-
-    const handleImagePreview = (e) =>
-    {
-        if(e.target.files[0])
-        {
+    const handleImagePreview = (e) => {
+        if (e.target.files[0]) {
             setImagePreview
-            (
-                {
-                    imagePreviewSrc: URL.createObjectURL(e.target.files[0]),
-                    imagePreviewAlt: e.target.files[0].name
-                }
-            );    
-        } 
+                (
+                    {
+                        imagePreviewSrc: URL.createObjectURL(e.target.files[0]),
+                        imagePreviewAlt: e.target.files[0].name
+                    }
+                );
+        }
+        else {
+            setImagePreview
+                (
+                    {
+                        imagePreviewSrc: "",
+                        imagePreviewAlt: ""
+                    }
+                );
+        }
     }
 
     return (
@@ -81,22 +91,33 @@ const PostMakerComponent = () => {
                             onChange={(e) => setTextContent(e.target.value)}>
                         </textarea>
                     </div>
-                    <div className="post_maker__box_submit__field">
-                        <label className="post_maker__box_submit__field__title post_maker__box_submit__field__title--image_input" htmlFor="imageContent">Image</label>
+                    <div className="post_maker__box_submit__field post_maker__box_submit__field--image">
+                        <label className="post_maker__box_submit__field__title post_maker__box_submit__field__title--image_input other_button" htmlFor="imageContent">Ajouter une image</label>
+                        {imageContent !== "" ?
+                            <div
+                                className="post_maker__box_submit__field__title post_maker__box_submit__field__title--image_input other_button"
+                                onClick={() => {
+                                    setImageContent("");
+                                    handleImagePreview();
+                                }}>Supprimer l'image
+                            </div> : null}
                         <input
                             type="file"
                             id="imageContent"
                             name="imageContent"
                             accept="image/*"
                             hidden
-                            onChange={(e) => 
-                            {
+                            onChange={(e) => {
                                 setImageContent(e.target.files[0]);
                                 handleImagePreview(e);
                             }}>
                         </input>
-                        <img className="post_maker__box_submit__field__image_preview" src={imagePreviewSrc} alt={imagePreviewAlt}/>
-                        <div>Supprimer Image</div>
+                        {imageContent !== "" ?
+                            <img
+                                className="post_maker__box_submit__field__image_preview"
+                                src={imagePreviewSrc}
+                                alt={imagePreviewAlt}
+                            /> : null}
                     </div>
                     {imageContent !== "" ?
                         <div className="post_maker__box_submit__field">
