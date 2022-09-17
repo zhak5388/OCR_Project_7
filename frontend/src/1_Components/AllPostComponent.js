@@ -6,7 +6,7 @@ import { ReloadContext } from "./ReloadComponent";
 const AllPostComponent = () => {
     const [allPost, getAllPosts] = useState();
     const [isLoading, setIsLoading] = useState(true);
-    const [orderPost, setOrderPost] = useState("?orderBy=mostRecent");
+    const [orderPost, setOrderPost] = useState("?orderBy=newest");
     const reload = useContext(ReloadContext);
     useEffect(() => {
         setTimeout(() => {
@@ -38,6 +38,8 @@ const AllPostComponent = () => {
                     else {
                         getAllPosts(allPostData);
                         setIsLoading(false);
+                        // eslint-disable-next-line
+                        reload.setHomePage(false);
                     }
 
                 })
@@ -50,27 +52,63 @@ const AllPostComponent = () => {
         }, 1000)
 
     }, [orderPost, reload.homePage])
-
+    
     const orderAllPost = (orderCriteria) => {
+        
         const queryParams = `?orderBy=${orderCriteria}`;
         if (queryParams !== orderPost) {
             setIsLoading(true);
             setOrderPost(queryParams);
+            let sortingSelector = document.getElementsByClassName("sorting-post-box__choice");
+            for(let i = 0; i < 4; i++)
+            {
+                sortingSelector[i].className = "sorting-post-box__choice";
+            }
         }
-    }
-
-    if (isLoading) {
-        return <p>Chargement... </p>
     }
     return (
         <React.StrictMode>
-            <div>
-                <div onClick={() => orderAllPost("newest")}>Plus récent</div>
-                <div onClick={() => orderAllPost("oldest")}>Plus ancien</div>
-                <div onClick={() => orderAllPost("mostPopular")}>Plus Populaire</div>
-                <div onClick={() => orderAllPost("lessPopular")}>Moins Populaire</div>
+            <div className="sorting-post-box">
+                <p>Trier par :</p>
+                <div
+                    id="sorting-post-box-newest"
+                    className="sorting-post-box__choice sorting-post-box__choice--selected"
+                    onClick={(e) => 
+                    {
+                        orderAllPost("newest");
+                        e.target.className = "sorting-post-box__choice sorting-post-box__choice--selected";
+                    }}>Plus récent
+                </div>
+                <div
+                    id="sorting-post-box-oldest"
+                    className="sorting-post-box__choice"
+                    onClick={(e) => 
+                    {
+                        orderAllPost("oldest");
+                        e.target.className = "sorting-post-box__choice sorting-post-box__choice--selected";
+                    }}>Plus ancien
+                </div>
+                <div
+                    id="sorting-post-box-mostPopular"
+                    className="sorting-post-box__choice"
+                    onClick={(e) => 
+                    {
+                        orderAllPost("mostPopular");
+                        e.target.className = "sorting-post-box__choice sorting-post-box__choice--selected";
+                    }}>Plus Populaire
+                </div>
+                <div
+                    id="sorting-post-box-lessPopular"
+                    className="sorting-post-box__choice"
+                    onClick={(e) => 
+                    {
+                        orderAllPost("lessPopular");
+                        e.target.className = "sorting-post-box__choice sorting-post-box__choice--selected";
+                    }}>Moins Populaire
+                </div>
             </div>
-            {allPost.map((data) =>
+            {(isLoading === true) ?
+            <p>Chargement</p> : allPost.map((data) =>
             (
                 <PostComponent postData={data} key={data._id} />
             ))}
@@ -79,3 +117,12 @@ const AllPostComponent = () => {
 }
 
 export default AllPostComponent;
+
+//{(optionSelected == "oldest") ? (`className="sorting-post-box__choice--selected"`): null}
+
+/*Bon quetru
+            {allPost.map((data) =>
+            (
+                <PostComponent postData={data} key={data._id} />
+            ))}
+*/

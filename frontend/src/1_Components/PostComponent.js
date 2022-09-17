@@ -59,6 +59,32 @@ const PostComponent = ({ postData }) => {
 
     }, [])
 
+    const deletePost = (postId) => {
+        let tempId = "631cadb98dd29bd0a8cd71c3";
+        const authorizationHeader = new Headers(
+            {
+                Authorization: "Bearer " + localStorage.getItem("groupomania_token")
+            });
+            
+
+        fetch(`http://localhost:3050/api/v1/submission/${postId}`,//${postId}`,
+            {
+                method: "DELETE",
+                headers: authorizationHeader,
+                params: {id:postId},
+            })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                else
+                {
+                    alert("Suppression Impossible"); 
+                }
+            })
+            .catch(() => alert("Une erreur interne est survenue"));
+    }
+
     const timeDifference = (before, now) => {
         let differenceInMinutes = Math.floor((now - before) / 60000);
         let differenceInHours = Math.floor(differenceInMinutes / 60);
@@ -82,34 +108,62 @@ const PostComponent = ({ postData }) => {
     }
 
     return (
-        <div>
-            <div>
-                <div><img src={userPostAvatar} alt={"Image de profil de " + userPostEmail} /></div>
-                <div>{userPostEmail}</div>
+        <div className="post-box">
+            <div className="post-box__author">
+                <div className="post-box__author__avatar"><img src={userPostAvatar} alt={"Image de profil de " + userPostEmail} /></div>
+                <div className="post-box__author__username">{userPostEmail}</div>
             </div>
-            <div>
-                {postData.content.text}
+            {(postData.content.type === "textOnly") ?
+                <p className="post-box__content post-box__content--textOnly">
+                    {postData.content.text}
+                </p> : null
+            }
+            {(postData.content.type === "imageOnly") ?
+                <div className="post-box__content post-box__content--imageOnly">
+                    <a href={postData.content.imageUrl}><img src={postData.content.imageUrl} alt={postData.content.imageAlt} /></a>
+                </div> : null}
+            {(postData.content.type === "textAndImage") ?
+                <div className="post-box__content post-box__content--textAndImage">
+                    <p>{postData.content.text}</p>
+                    <div className="post-box__content post-box__content--textAndImage__imageContainer">
+                        <a href={postData.content.imageUrl}><img src={postData.content.imageUrl} alt={postData.content.imageAlt} /></a>
+                    </div>
+                </div> : null}
+            <div className="post-box__interaction">
+                <div className="post-box__interaction__like">{postData.likes}</div>
+                {
+                    (postData.userId === currentUserId || currentUserRole === "admin") ?
+                        <div className="post-box__interaction__edit">Modifier</div> : null
+                }
+                {
+                    (postData.userId === currentUserId || currentUserRole === "admin") ?
+                        <div
+                            onClick={() => {
+                                console.log("DELETE!!");
+                                console.log(postData._id);
+                                //let answer = window.confirm("Voulez vous supprimer cette publication?");
+                                //console.log(answer);
+
+                                
+                                if(window.confirm("Voulez vous supprimer cette publication?"))
+                                {
+                                    deletePost(postData._id);
+                                }
+                            }}
+                            className="post-box__interaction__delete">
+                            Supprimer
+                        </div> : null
+                }
             </div>
             {
                 (postData.userId === postData.lastModifier) ?
                     (
                         (postData.dateCreation === postData.lastDateModification) ?
-                            <div>Crée il y a {timeDifference(postData.dateCreation, Date.now())}</div> : <div>Modifié il y a {timeDifference(postData.lastDateModification, Date.now())}</div>
+                            <div className="post-box__info">Crée il y a {timeDifference(postData.dateCreation, Date.now())}</div> : <div className="post-box__info">Modifié il y a {timeDifference(postData.lastDateModification, Date.now())}</div>
                     )
                     :
-                    <div>Modifié par l'administrateur il y a {timeDifference(postData.lastDateModification, Date.now())}</div>
+                    <div className="post-box__info post-box__info--administrateur">Modifié par l'administrateur il y a {timeDifference(postData.lastDateModification, Date.now())}</div>
             }
-            <div>
-                <div>{postData.likes}</div>
-                {
-                    (postData.userId === currentUserId || currentUserRole === "admin") ?
-                        <div>Modifier</div> : null
-                }
-                {
-                    (postData.userId === currentUserId || currentUserRole === "admin") ?
-                        <div>Supprimer</div> : null
-                }
-            </div>
 
         </div>
     )

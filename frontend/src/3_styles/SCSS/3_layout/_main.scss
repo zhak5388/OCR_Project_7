@@ -8,5 +8,12 @@ main
     
     display: flex;
     flex-direction: column;
+    //align-items: flex-start;
     align-items: center;
+    gap: 15px;
+}
+
+.main--home-auth
+{
+    align-items: flex-start;
 }

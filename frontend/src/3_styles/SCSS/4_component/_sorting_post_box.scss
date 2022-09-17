@@ -1,0 +1,33 @@
+.sorting-post-box
+{
+    width: 50%;
+    padding: 15px;
+    border-radius: 15px;
+    align-self: flex-start;
+    //border: 1px dashed black;
+
+    background-color: $background-primary;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    p
+    {
+        width: 100%;
+        margin-top: 0px;
+    }
+    
+    &__choice
+    {
+        border: 2px solid $color-tertiary;
+        //background-color: $color-secondary;
+        padding: 3px;
+        border-radius: 10px;
+        cursor: pointer;
+        &--selected
+        {
+            cursor: default;
+            background-color: $color-secondary;;
+        }
+    }
+}

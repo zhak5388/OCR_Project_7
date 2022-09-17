@@ -34,7 +34,7 @@ const HomePage = () => {
             <React.StrictMode>
                 <HeaderComponent value="home" />
                 <div className="containerWrapper">
-                    <main>
+                    <main className="main--home-auth">
                         <PostMakerComponent>
                             {document.title = "Groupomania - Acceuil"}
                         </PostMakerComponent>
