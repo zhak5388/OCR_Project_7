@@ -1,3 +1,4 @@
+import areTokenAvailable from "../4_utils/tokenChecker";
 import logo from "../5_misc/groupomania_logo_complet.png"
 
 const HeaderComponent = (props) => {
@@ -52,7 +53,29 @@ const HeaderComponent = (props) => {
             </header>
         )
     }
-    else if (props.value === "notFound")//Cas 3 - Pour Page 404 (Temp doit gerer auth et non auth)
+    else if (props.value === "notFound")//Cas 3 - Pour Page 404
+    {
+        let redirect = "../login";
+        if(areTokenAvailable())
+        {
+            redirect = "../home";
+        }
+        return (
+            <header>
+                <div className="contentWrapper">
+                    <div className="logo">
+                        <img src={logo} alt="Groupomania" />
+                    </div>
+                    <nav>
+                        <ul>
+                            <li><a href={redirect}>Acceuil</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+        )
+    }
+    else if (props.value === "editPostAuth") //Cas 4 - Pour Edit Post
     {
         return (
             <header>
@@ -62,14 +85,15 @@ const HeaderComponent = (props) => {
                     </div>
                     <nav>
                         <ul>
-                            <li><a href="../login">Acceuil</a></li>
+                            <li><a href="../home">Acceuil</a></li>
+                            <li><span onClick={(e) => logout(e)}>Se déconnecter</span></li>
                         </ul>
                     </nav>
                 </div>
             </header>
         )
     }
-    else return ( //Cas 4 (Defaut) - Pour Page Login & SignUp
+    else return ( //Cas 5 (Defaut) - Pour Page Login & SignUp
         <header>
             <div className="contentWrapper">
                 <div className="logo">

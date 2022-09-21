@@ -142,8 +142,6 @@ const deleteSubmission = (req, res, next) => {
             res.status(401).json({ message: "Utilisateur non autorisé" });
         }
         else if (req.auth.userId == currentSubmission.userId || req.auth.role == "admin") {
-            console.log(currentSubmission.content.type)
-
             if (currentSubmission.content.type !== "textOnly") {
                 const imageFileName = currentSubmission.content.imageUrl.split(`/${process.env.IMAGE_ACCESS_DIRECTORY}/`)[1];
 

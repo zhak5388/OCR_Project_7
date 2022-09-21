@@ -6,6 +6,8 @@ import SignUpPage from "./2_pages/SignUpPage";
 import NotFoundPage from "./2_pages/NotFoundPage";
 import HomePage from "./2_pages/HomePage";
 import { ReloadProvider } from "./1_Components/ReloadComponent";
+import EditPostPage from "./2_pages/EditPostPage";
+import ProfilePage from "./2_pages/ProfilePage";
 
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/editPost/:postId" element={<EditPostPage />} />
+          <Route path="/profile/:userId" element={<ProfilePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

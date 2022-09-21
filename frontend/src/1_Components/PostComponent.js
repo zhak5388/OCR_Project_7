@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { ReloadContext } from "./ReloadComponent";
 
 const PostComponent = ({ postData }) => {
     const [userPostEmail, setUserPostEmail] = useState();
     const [userPostAvatar, setUserPostAvatar] = useState();
     const currentUserId = localStorage.getItem("groupomania_id");
     const [currentUserRole, setCurrentUserRole] = useState();
+    //const [ReloadComponent, setReload] = useState(false);
+    const reload = useContext(ReloadContext);
 
     useEffect(() => {
         const authorizationHeader = new Headers(
@@ -56,30 +59,52 @@ const PostComponent = ({ postData }) => {
                 setCurrentUserRole(userInfo.role);
             })
             .catch(() => alert("Une erreur interne est survenue"));
-
+        // eslint-disable-next-line
     }, [])
 
     const deletePost = (postId) => {
-        let tempId = "631cadb98dd29bd0a8cd71c3";
         const authorizationHeader = new Headers(
             {
                 Authorization: "Bearer " + localStorage.getItem("groupomania_token")
             });
-            
 
-        fetch(`http://localhost:3050/api/v1/submission/${postId}`,//${postId}`,
+
+        fetch(`http://localhost:3050/api/v1/submission/${postId}`,
             {
                 method: "DELETE",
                 headers: authorizationHeader,
-                params: {id:postId},
             })
             .then((response) => {
                 if (response.ok) {
-                    return response.json();
+                    reload.setHomePage(true);
                 }
-                else
-                {
-                    alert("Suppression Impossible"); 
+                else {
+                    alert("Suppression Impossible");
+                }
+            })
+            .catch(() => alert("Une erreur interne est survenue"));
+    }
+
+    const likePost = (postId, action) => {
+        const authorizationHeader = new Headers(
+            {
+                Authorization: "Bearer " + localStorage.getItem("groupomania_token"),
+                "Content-Type": "application/json",
+            });
+        fetch(`http://localhost:3050/api/v1/submission/${postId}/like`,
+            {
+                method: "POST",
+                headers: authorizationHeader,
+                body: JSON.stringify({ like: action }),
+            })
+            .then((response) => {
+                if (response.ok) {
+                    //console.log("lol");
+                    //setReload(true);
+                    reload.setHomePage(true);
+                }
+                else {
+                    alert("Action Impossible");
                 }
             })
             .catch(() => alert("Une erreur interne est survenue"));
@@ -114,9 +139,9 @@ const PostComponent = ({ postData }) => {
                 <div className="post-box__author__username">{userPostEmail}</div>
             </div>
             {(postData.content.type === "textOnly") ?
-                <p className="post-box__content post-box__content--textOnly">
+                <textarea readonly="readonly" className="post-box__content post-box__content--textOnly">
                     {postData.content.text}
-                </p> : null
+                </textarea> : null
             }
             {(postData.content.type === "imageOnly") ?
                 <div className="post-box__content post-box__content--imageOnly">
@@ -124,35 +149,47 @@ const PostComponent = ({ postData }) => {
                 </div> : null}
             {(postData.content.type === "textAndImage") ?
                 <div className="post-box__content post-box__content--textAndImage">
-                    <p>{postData.content.text}</p>
+                    <textarea readonly="readonly">{postData.content.text}</textarea>
                     <div className="post-box__content post-box__content--textAndImage__imageContainer">
                         <a href={postData.content.imageUrl}><img src={postData.content.imageUrl} alt={postData.content.imageAlt} /></a>
                     </div>
                 </div> : null}
             <div className="post-box__interaction">
-                <div className="post-box__interaction__like">{postData.likes}</div>
+                <div className="post-box__interaction__like">
+                    <div
+                        onClick={() => {
+                            if (postData.usersLiked.includes(currentUserId)) {
+                                likePost(postData._id, "0");
+                            }
+                            else {
+                                likePost(postData._id, "1");
+                            }
+                        }}
+                        className="post-box__interaction__like__action">{postData.usersLiked.includes(currentUserId) ? <i className="fa-solid fa-heart liked"></i> : <i className="fa-regular fa-heart"></i>} 
+                    </div>
+                    <div className="post-box__interaction__like__number">{postData.likes}</div>
+                </div>
+                
                 {
                     (postData.userId === currentUserId || currentUserRole === "admin") ?
-                        <div className="post-box__interaction__edit">Modifier</div> : null
-                }
-                {
-                    (postData.userId === currentUserId || currentUserRole === "admin") ?
+                    <div className="post-box__interaction__editdelete">
                         <div
-                            onClick={() => {
-                                console.log("DELETE!!");
-                                console.log(postData._id);
-                                //let answer = window.confirm("Voulez vous supprimer cette publication?");
-                                //console.log(answer);
-
-                                
-                                if(window.confirm("Voulez vous supprimer cette publication?"))
-                                {
-                                    deletePost(postData._id);
-                                }
+                            onClick={() =>
+                            {
+                                window.location.href = `../editPost/${postData._id}`;
                             }}
-                            className="post-box__interaction__delete">
-                            Supprimer
-                        </div> : null
+                            className="post-box__interaction__editdelete__button other_button">
+                            Modifier
+                        </div>
+                        <div
+                        onClick={() => {
+                            if (window.confirm("Voulez vous supprimer cette publication?")) {
+                                deletePost(postData._id);
+                            }
+                        }}
+                        className="post-box__interaction__editdelete__button other_button">
+                        Supprimer
+                    </div></div>: null
                 }
             </div>
             {
@@ -170,3 +207,18 @@ const PostComponent = ({ postData }) => {
 }
 
 export default PostComponent;
+//<i className="fa-solid fa-heart"></i><i className="fa-regular fa-heart">
+
+/*
+                {
+                    (postData.userId === currentUserId || currentUserRole === "admin") ?
+                        <div
+                            onClick={() => {
+                                if (window.confirm("Voulez vous supprimer cette publication?")) {
+                                    deletePost(postData._id);
+                                }
+                            }}
+                            className="post-box__interaction__delete post-box__interaction__button other_button">
+                            Supprimer
+                        </div> : null
+                }*/
