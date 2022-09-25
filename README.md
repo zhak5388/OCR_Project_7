@@ -23,7 +23,7 @@ Si vous **ne** souhaitez **pas** importer cette base de données:
 Si vous souhaitez importer cette base de données:
 1. [Installer](https://www.mongodb.com/docs/database-tools/installation/installation/) MongoDB DataBase tools
 2. Lancer les commandes
-> mongoimport -v "Adresse SRV Chemin du fichier" "groupomania_submissionmodels.json" <br/>
+> mongoimport -v \<Adresse SRV Chemin du fichier\> "groupomania_submissionmodels.json" <br/>
 > mongoimport -v "Adresse SRV Chemin du fichier" "groupomania_usermodels.json"
 
 Exemple:
