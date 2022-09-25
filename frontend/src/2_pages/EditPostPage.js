@@ -43,8 +43,6 @@ const EditPostPage = () => {
                             headers: authorizationHeader,
                         })
                         .then((response) => {
-                            //console.log(response.status);
-
                             if (response.ok) {
                                 return response.json();
                             }
@@ -104,8 +102,6 @@ const EditPostPage = () => {
         )
     }
     else if (isUserAuthorized === true) {
-
-        //console.log(currentPost);
         let postTreated = 
         {
             id: currentPost._id,
@@ -114,7 +110,6 @@ const EditPostPage = () => {
             imageContentAlt: ""
 
         };
-        //console.log(currentPost.content);
         if(currentPost.content.type === "textOnly")
         {  
             postTreated.textContent = currentPost.content.text;

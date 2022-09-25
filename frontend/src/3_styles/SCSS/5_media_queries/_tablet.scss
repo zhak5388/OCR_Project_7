@@ -1,9 +1,5 @@
 @media all and (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop)
 {
-    body
-    {
-        background-color: yellow;
-    }
     .contentWrapper
     {
         width: $width-content-tablet;

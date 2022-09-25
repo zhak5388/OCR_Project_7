@@ -9,7 +9,7 @@ import { ReloadProvider } from "./1_Components/ReloadComponent";
 import EditPostPage from "./2_pages/EditPostPage";
 //import ProfilePage from "./2_pages/ProfilePage";
 
-//Suppression de la la pge Profil
+//Suppression de la la page Profil
 //<Route path="/profile/:userId" element={<ProfilePage />} />
 function App() {
   return (

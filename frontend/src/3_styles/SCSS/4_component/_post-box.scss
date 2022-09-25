@@ -4,16 +4,12 @@
     max-height: $height-post-box;
     padding: $padding-post-box;
     margin-bottom: $padding-post-box;
-    //box-sizing:content-box;
-    //box-sizing: border-box;
 
     background-color: $background-primary;
     border-radius: 30px;
 
     display: flex;
     flex-direction: column;
-    //justify-content:end;
-    //gap: 5px;
 
     textarea
     {
@@ -29,10 +25,7 @@
         border: 1px solid grey;
         border-radius: 10px;
 
-        //min-height: fit-content;
         height: 100px;
-        //padding: 5px;
-        //height: max-content;
         &:focus
         {
             outline: none;
@@ -41,7 +34,6 @@
 
     &__author
     {
-        //border: 1px dashed black;
         display: flex;
         align-items: center;
         gap:20px;
@@ -72,15 +64,7 @@
     }
 
     &__content
-    {
-        //border: 1px dashed black;
-        /*
-        img
-        {
-            display: none;
-        }
-        */
-        
+    {        
         &--imageOnly
         {
             height: $height-post-box-image;
@@ -108,14 +92,12 @@
 
     &__interaction
     {
-        //border: 1px dashed black;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 10px;
         &__like
         {
-            //border: 1px dashed black;
             cursor: pointer;
             height: 50px;
             width: 50px;
@@ -143,9 +125,7 @@
 
     &__info
     {
-        //border: 1px dashed black;
         text-align: end;
-        //align-self: flex-end;
         &--administrateur
         {
             color: $color-error;

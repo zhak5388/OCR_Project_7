@@ -50,7 +50,7 @@ const AllPostComponent = () => {
                 });
 
         }, 1000)
-
+    // eslint-disable-next-line
     }, [orderPost, reload.homePage])
     
     const orderAllPost = (orderCriteria) => {
@@ -117,12 +117,3 @@ const AllPostComponent = () => {
 }
 
 export default AllPostComponent;
-
-//{(optionSelected == "oldest") ? (`className="sorting-post-box__choice--selected"`): null}
-
-/*Bon quetru
-            {allPost.map((data) =>
-            (
-                <PostComponent postData={data} key={data._id} />
-            ))}
-*/

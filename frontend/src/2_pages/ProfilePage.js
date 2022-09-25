@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import FooterComponent from "../1_Components/FooterComponent";
 import HeaderComponent from "../1_Components/HeaderComponent";

@@ -16,8 +16,8 @@ const SignUpComponent = () => {
     }
 
     const passwordCheckFunction = (e) => {
-        //let regexTest =  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
-        let regexTest = /^(?=.*?[a-z]).{3,}$/;
+        let regexTest =  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+        //let regexTest = /^(?=.*?[a-z]).{3,}$/;
         let result = (regexTest.test(e));
         !result ? setPasswordValidator(false) : setPasswordValidator(true);
         return result;

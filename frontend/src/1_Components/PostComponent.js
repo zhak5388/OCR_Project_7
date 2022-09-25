@@ -6,7 +6,6 @@ const PostComponent = ({ postData }) => {
     const [userPostAvatar, setUserPostAvatar] = useState();
     const currentUserId = localStorage.getItem("groupomania_id");
     const [currentUserRole, setCurrentUserRole] = useState();
-    //const [ReloadComponent, setReload] = useState(false);
     const reload = useContext(ReloadContext);
 
     useEffect(() => {
@@ -99,8 +98,6 @@ const PostComponent = ({ postData }) => {
             })
             .then((response) => {
                 if (response.ok) {
-                    //console.log("lol");
-                    //setReload(true);
                     reload.setHomePage(true);
                 }
                 else {
@@ -207,18 +204,3 @@ const PostComponent = ({ postData }) => {
 }
 
 export default PostComponent;
-//<i className="fa-solid fa-heart"></i><i className="fa-regular fa-heart">
-
-/*
-                {
-                    (postData.userId === currentUserId || currentUserRole === "admin") ?
-                        <div
-                            onClick={() => {
-                                if (window.confirm("Voulez vous supprimer cette publication?")) {
-                                    deletePost(postData._id);
-                                }
-                            }}
-                            className="post-box__interaction__delete post-box__interaction__button other_button">
-                            Supprimer
-                        </div> : null
-                }*/

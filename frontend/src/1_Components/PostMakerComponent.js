@@ -24,9 +24,7 @@ const PostMakerComponent = () => {
 
         if (textContent !== "" || imageContent !== "") {
             setSubmission(false);
-            console.log("haha");
-
-
+            
             const dataForm = new FormData();
             dataForm.append("textContent", textContent);
             dataForm.append("imageContent", imageContent);

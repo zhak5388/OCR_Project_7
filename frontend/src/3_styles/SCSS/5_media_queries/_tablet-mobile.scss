@@ -1,4 +1,3 @@
-//@media all and (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop)
 @media all and (max-width: $breakpoint-desktop)
 {
     .post_maker__box_submit__field__title--image
@@ -21,7 +20,7 @@
 
         &__choice
         {
-            width: 140px;//126px;
+            width: 140px;
             min-width: fit-content;
             text-align: center;
         }

@@ -6,12 +6,4 @@ body
 main
 {
     min-height: calc(100vh - ($height-header + $height-footer));
-    //min-height: calc(100vh - $height-header);
 }
-
-/*
-*
-{
-    border: 1px dashed black;
-}
-*/

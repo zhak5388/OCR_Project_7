@@ -3,9 +3,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 
-//Bug preflight response
-//var cors = require("cors");
-
 //Importation des variables d"environnement
 const mongoDbUsername = process.env.MONGODB_USERNAME;
 const mongoDdPassword = process.env.MONGODB_PASSWORD;
@@ -46,11 +43,6 @@ app.use((req, res, next) =>
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     next();
 });
-
-
-//Bug preflight response
-//app.use(cors())
-//app.options("*", cors())
 
 //Appel des routes
 app.use("/api/v1/user", userRoutes);

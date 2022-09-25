@@ -17,7 +17,6 @@ const signUp = (req, res, next) =>
             {
                     email: req.body.email,
                     password: hash,
-                    passwordPlain: req.body.password,
                     urlAvatarPicture: `${req.protocol}://${req.get("host")}/api/v1/${process.env.AVATAR_ACCESS_DIRECTORY}/${avatarObject[randomNumber].avatarFileName}`,
                     IdAvatarPicture: avatarObject[randomNumber].id
             });

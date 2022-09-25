@@ -1,21 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const EditPostComponent = (props) => {
-    //props.value
-
     const [textContent, setTextContent] = useState(props.post.textContent);
     const [imageContent, setImageContent] = useState(props.post.imageContent);
     const [imageContentAlt, setImageContentAlt] = useState(props.post.imageContentAlt);
     const [submissionEmpty, setSubmission] = useState(false);
     const [{ imagePreviewSrc, imagePreviewAlt }, setImagePreview] = useState({ imagePreviewSrc: props.post.imageContent, imagePreviewAlt: props.post.imageContentAlt });
-    /*
-    console.log("textContent");
-    console.log(textContent);
-    console.log("imageContent");
-    console.log(imageContent);
-    console.log("imageContentAlt");
-    console.log(imageContentAlt);
-    */
     
     useEffect(()=>
     {
@@ -25,9 +15,6 @@ const EditPostComponent = (props) => {
 
     const modifyPost = (e) => {
         e.preventDefault();
-        console.log(textContent);
-        console.log(imageContent);
-        console.log(imageContentAlt);
 
         const dataForm = new FormData();
         dataForm.append("textContent", textContent);
@@ -134,7 +121,6 @@ const EditPostComponent = (props) => {
                             hidden
                             onChange={(e) => {
                                 setImageContent(e.target.files[0]);
-                                //setImageContentAlt(""); //Rend utilisateur confus
                                 handleImagePreview(e);
                                 setSubmission(false);
                             }}>
