@@ -10,6 +10,7 @@ const HeaderComponent = (props) => {
         window.location.href = "../login";
     }
 
+    /* Suppression de l'option profil
     const goToProfile = (e) => //En cours
     {
         e.preventDefault();
@@ -17,7 +18,11 @@ const HeaderComponent = (props) => {
         let userId = localStorage.getItem("groupomania_id");
         window.location.href = `../profile/${userId}`;
     }
-    if (props.value === "home") //Cas 1 - Pour Page Home
+    */
+   //Cas 1 - Pour Page Home
+   //Suppression de l'option profil
+   //<li><span onClick={(e) => goToProfile(e)}>Profil</span></li>
+    if (props.value === "home")
     {
         return (
             <header>
@@ -27,7 +32,6 @@ const HeaderComponent = (props) => {
                     </div>
                     <nav>
                         <ul>
-                            <li><span onClick={(e) => goToProfile(e)}>Profil</span></li>
                             <li><span onClick={(e) => logout(e)}>Se déconnecter</span></li>
                         </ul>
                     </nav>

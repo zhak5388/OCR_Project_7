@@ -1,0 +1,16 @@
+//@media all and (min-width: $breakpoint-desktop-tweak)
+@media all and (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop-tweak)
+{
+    body
+    {
+        background-color: green;
+    }
+    .contentWrapper
+    {
+        width: $width-content-desktop-tweak;
+    }
+    main
+    {
+        width: $width-content-desktop-tweak;
+    }
+}

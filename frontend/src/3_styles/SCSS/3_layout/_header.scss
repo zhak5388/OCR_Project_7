@@ -36,10 +36,12 @@ header
             display: flex;
             flex-direction: row;
             justify-content: flex-end;
+            align-items: center;
             gap: 50px;
            
             li
             {
+                text-align: center;
                 a, span
                 {
                     cursor: pointer;

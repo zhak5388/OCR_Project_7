@@ -2,6 +2,7 @@ $color-primary:#ea1c03; //Modifiée
 $color-secondary:#FFd7d7; //Original
 $color-tertiary:#353535;//Modifiée
 $color-error: #EE0700;
+$color-link: #0000ff;
 
 $background-primary:#FFFFFF;
 $background-secondary:#ededed;//#e1e1e1;//#fafafa;
@@ -35,3 +36,18 @@ $height-post-box-image:200px;
 $padding-post-box: 15px;
 $width-avatar: 75px;
 
+//media_queries
+$breakpoint-desktop-tweak: 1200px;
+$breakpoint-desktop: 991px;
+$breakpoint-tablet: 768px;
+//$breakpoint-tablet: 790px;
+//$breakpoint-tablet: 500px;
+
+//desktop
+$width-content-desktop-tweak:80%;
+
+//tablet
+$width-content-tablet:90%;
+
+//mobile
+$width-content-mobile:100%;

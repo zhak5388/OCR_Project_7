@@ -5,15 +5,25 @@ main
     padding-right: $side-edge;
 
     background-color: $background-secondary;
-    
+
     display: flex;
     flex-direction: column;
     //align-items: flex-start;
     align-items: center;
     gap: 15px;
+
+    a 
+    {
+        color: $color-link;
+        text-decoration: underline;
+
+        &:visited 
+        {
+            color: $color-link;
+        }
+    }
 }
 
-.main--home-auth
-{
+.main--home-auth {
     align-items: flex-start;
 }

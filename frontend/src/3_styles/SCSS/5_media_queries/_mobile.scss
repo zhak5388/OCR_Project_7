@@ -1,0 +1,33 @@
+@media all and (max-width: $breakpoint-tablet)
+{
+    body
+    {
+        background-color: red;
+    }
+    .contentWrapper
+    {
+        width: $width-content-mobile;
+    }
+    header
+    {
+        padding-left: $side-edge;
+        padding-right: $side-edge;
+        .logo
+        {
+            margin-right: 40px;
+        }
+    }
+    main
+    {
+        width: $width-content-mobile;
+    }
+    .sorting-post-box
+    {
+        min-width: calc(100% - $side-edge);
+        width: calc(100% - $side-edge);
+        &__choice
+        {
+            width: 200px;
+        }
+    }
+}
