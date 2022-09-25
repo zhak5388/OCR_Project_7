@@ -11,13 +11,14 @@ Ce projet utilise:
 Dans le dossier `backend` il y a un fichier `.env.example`:
 1. Renommez le en `.env`
 2. Renseignez vos identifiants MongoDB `MONGODB_USERNAME` et `MONGODB_PASSWORD`
-3. Renseignez une clé secrète pour le token
+3. Renseignez votre `MONGODB_HOST`, plus d'informations [ici](https://docs.mongodb.com/manual/reference/connection-string/#dns-seedlist-connection-format)
+4. Renseignez une clé secrète pour le token
 
 ### 2 - Importation de la base de données
 Vous pouvez importez la base de données fournie située dans `backend/0_DataBase_Sample` dans votre cluster MongoDB.
 
 Si vous **ne** souhaitez **pas** importer cette base de données:
-1. Supprimer les images du dossier `backend/public/submission/image`
+1. Supprimer les images du dossier `backend/public/submission/image` ainsi que le dossier `backend/0_DataBase_Sample`
 2. Pour nommer un utilisateur administraeur, il faudra modifier manuellement son attribut `role:lambda` en `role:admin`
 
 Si vous **souhaitez** importer cette base de données:

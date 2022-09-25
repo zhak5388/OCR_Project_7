@@ -6,6 +6,7 @@ const path = require("path");
 //Importation des variables d"environnement
 const mongoDbUsername = process.env.MONGODB_USERNAME;
 const mongoDdPassword = process.env.MONGODB_PASSWORD;
+const mongoDdHost = process.env.MONGODB_HOST;
 const imageUploadDirectory = process.env.IMAGE_UPLOAD_DIRECTORY;
 const imageAccessDirectory = process.env.IMAGE_ACCESS_DIRECTORY;
 const avatarUploadDirectory = process.env.AVATAR_UPLOAD_DIRECTORY;
@@ -19,7 +20,7 @@ const avatarRoutes = require("./routes/avatarRoutes");
 //Importation du module express
 const app = express();
 
-mongoose.connect(`mongodb+srv://${mongoDbUsername}:${mongoDdPassword}@ocrprojects.a1zqegb.mongodb.net/?retryWrites=true&w=majority`,
+mongoose.connect(`mongodb+srv://${mongoDbUsername}:${mongoDdPassword}@${mongoDdHost}`,
 {
     useNewUrlParser: true,
     useUnifiedTopology: true
