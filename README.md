@@ -1,3 +1,12 @@
+## Introduction
+
+Projet final de la formation “Développeur intégrateur web” d'OpenClassRooms.
++ Construction d’un réseau social interne en responsive pour l’entreprise fictive Groupomania.
++ Élaboration de l’aspect graphique du site.
++ Réalisation du frontend et du backend API (Rest).
+
+![PageAcceuil](https://raw.githubusercontent.com/zhak5388/MiscFiles_Projets/main/Pictures/OCR_Groupomania_1.png "Page de login")
+
 ## Technologies utilisées
 
 Ce projet utilise:
@@ -47,3 +56,8 @@ Placez vous dans `backend`:
 
 Ouvrez une autre fenetre de terminal, placez vous dans `frontend`:
 > npm start
+
+
+### 4 - Aperçu
+
+![PageAcceuil](https://raw.githubusercontent.com/zhak5388/MiscFiles_Projets/main/Pictures/OCR_Groupomania_2.png "Page d'accueil")
